@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow"
+             x:Class="LibraryWindow.MainPage">
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <Button Text="Winkel" Pressed="Store_Pressed"/>
+                <Button Text="Geld storten" Pressed="Deposit_Pressed"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="End" VerticalOptions="Start" HeightRequest="65" Orientation="Horizontal">
+                <Button Text="Uitloggen" Margin="0,0,0,20" Pressed="Uitloggen_Pressed"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.account.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" TextColor="White" Margin="0,0,10,15" Text="{Binding Username, Mode=OneWay}"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.token.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" Text="{Binding Tokens, Mode=OneWay}" TextColor="White" Margin="0,0,10,15"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.RowSpan="2" Source="{local:ImageResource LibraryWindow.Images.Main.background.png}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
+
+        <CarouselView Loop="False" Grid.Row="0" Margin="0,20,0,0" IndicatorView="indicatorView" x:Name="CarouselView" IsSwipeEnabled="True" PeekAreaInsets="200" ItemsSource="{Binding CarouselMenuItems}">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout SnapPointsAlignment="Center" SnapPointsType="Mandatory" Orientation="Horizontal" ItemSpacing="0"/>
+            </CarouselView.ItemsLayout>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <ScrollView>
+                        <ImageButton BackgroundColor="Transparent" Source="{Binding Source}" Clicked="ImageButton_Pressed"/>
+                    </ScrollView>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <Frame Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End" BackgroundColor="#88000000" Padding="5" Margin="0,0,0,10" CornerRadius="20">
+            <IndicatorView x:Name="indicatorView" SelectedIndicatorColor="Green" IndicatorColor="White" IndicatorSize="8" HorizontalOptions="Center"/>
+        </Frame>
+    </Grid>
+
+
+</ContentPage>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow;assembly=LibraryWindow"
+             x:Class="LibraryWindow.Pages.SlotmachinePage">
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <Button Text="Winkel" Pressed="Store_Pressed"/>
+                <Button Text="Geld storten" Pressed="Deposit_Pressed"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="End" VerticalOptions="Start" HeightRequest="65" Orientation="Horizontal">
+                <Button Text="Uitloggen" Margin="0,0,0,20" Pressed="Uitloggen_Pressed"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.account.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" TextColor="White" Margin="0,0,10,15" Text="{Binding Username, Mode=OneWay}"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.token.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" Text="{Binding Tokens, Mode=OneWay}" TextColor="White" Margin="0,0,10,15"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{local:ImageResource LibraryWindow.Images.Main.background.png}" Grid.RowSpan="2" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Grid.RowSpan="3" HeightRequest="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[0].Slots[0].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame  Grid.Row="1" Grid.Column="0" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[0].Slots[1].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="2" Grid.Column="0" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[0].Slots[2].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[1].Slots[0].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[1].Slots[1].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="2" Grid.Column="1" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[1].Slots[2].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="2" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[2].Slots[0].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="2" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[2].Slots[1].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                    <Frame Grid.Row="2" Grid.Column="2" BackgroundColor="Transparent" BorderColor="Black">
+                        <Image Source="{Binding Slotmachine.SlotRows[2].Slots[2].ImageURL, Mode=OneWay}"/>
+                    </Frame>
+                </Grid>
+                <Button Text="?" FontSize="Small" TextColor="White" Background="Black" Pressed="Help_Pressed" WidthRequest="5" Grid.Row="1" Grid.Column="1"></Button>
+                <Button Text="Game on" FontSize="Small" TextColor="White" BackgroundColor="Black" Pressed="BtnStart_Pressed" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding AllowedToClick, Mode=OneWay}"></Button>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

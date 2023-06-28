@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow;assembly=LibraryWindow"
+             x:Class="LibraryWindow.Pages.LoginPage">
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <Label Text="StonksCasino" TextColor="White" FontSize="30" HorizontalTextAlignment="Center" FontAttributes="Bold" VerticalTextAlignment="Center" Margin="0,0,0,20"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid>
+            <Grid>
+                <Image Grid.RowSpan="5" Source="{local:ImageResource LibraryWindow.Images.Main.background.png}" Aspect="AspectFill"/>
+            </Grid>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="275"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="425"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="#88000000" Padding="15" CornerRadius="20">
+                    <Grid>
+                        <Entry Grid.Row="0" PlaceholderColor="#c2c2c2" TextColor="White" Placeholder="E-mail" Text="{Binding MyEmail, Mode=OneWayToSource}"/>
+                        <Entry Grid.Row="1" PlaceholderColor="#c2c2c2" TextColor="White" Placeholder="Wachtwoord" Text="{Binding MyPassword, Mode=OneWayToSource}" IsPassword="True"/>
+
+                        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" Spacing="0">
+                            <Button Text="Account registreren" TextTransform="None" TextColor="White" BackgroundColor="Transparent" Pressed="Register_Pressed"/>
+                            <Label Text="|" VerticalOptions="Center" TextColor="White" BackgroundColor="Transparent"/>
+                            <Button Text="Wachtwoord vergeten?" TextTransform="None" TextColor="White" BackgroundColor="Transparent" Pressed="Passreset_Pressed"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="3" Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding Remember, Mode=OneWayToSource}"></CheckBox>
+                            <Label Text="Onthoud mij" VerticalOptions="Center" TextColor="White"/>
+                        </StackLayout>
+
+                        <Grid Grid.Row="4" x:Name="gridLogin">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton x:Name="imgFinger" Pressed="FingerprintButton_Pressed" Grid.Column="1" BackgroundColor="Transparent" Source="{local:ImageResource LibraryWindow.Images.Main.fingerprint.png}" />
+                            <Button x:Name="btnLogin" Grid.Column="0" Pressed="Button_Pressed" CornerRadius="50" BackgroundColor="DarkGreen" Text="login"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

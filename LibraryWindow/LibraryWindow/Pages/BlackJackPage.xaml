@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow"
+             x:Class="LibraryWindow.Pages.BlackJackPage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <Button Text="Winkel" Pressed="Store_Pressed"/>
+                <Button Text="Geld storten" Pressed="Deposit_Pressed"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="End" VerticalOptions="Start" HeightRequest="65" Orientation="Horizontal">
+                <Button Text="Uitloggen" Margin="0,0,0,20" Pressed="Uitloggen_Pressed"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.account.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" TextColor="White" Margin="0,0,10,15" Text="{Binding Username, Mode=OneWay}"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.token.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" Text="{Binding Tokens, Mode=OneWay}" TextColor="White" Margin="0,0,10,15"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <Grid>
+            <Image Source="{local:ImageResource LibraryWindow.Images.Main.background.png}" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1" Grid.Row="0">
+                        <CollectionView ItemsLayout="HorizontalList" BackgroundColor="Transparent" HorizontalOptions="Center" ItemsSource="{Binding ComputerGame.Computer[0].HandC, Mode=OneWay}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Margin="0, 0" WidthRequest="70" HeightRequest="100" Source="{Binding ActiveURL, Mode=OneWay}"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+                    <StackLayout Grid.Row="1" Grid.Column="1" VerticalOptions="Center" Margin="10,0,0,0">
+                        <Label Text="{Binding ComputerGame.Computer[0].ShowScore, Mode=OneWay}" WidthRequest="50" HeightRequest="40" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"></Label>
+                        <Label HeightRequest="2" Background="black"></Label>
+                        <Label Text="{Binding Game.Players[0].Score, Mode=OneWay}" IsVisible="{Binding Game.NoSplitGrid}" WidthRequest="50" HeightRequest="40" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"></Label>
+                    </StackLayout>
+
+                    <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Game.SplitGrid}">
+                        <Label Text="{Binding Game.Players[0].ScoreL, Mode=OneWay}" x:Name="Leftscore" Margin="90,75,0,0" WidthRequest="50" HeightRequest="50" FontSize="25" VerticalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Game.Players[0].ScoreR, Mode=OneWay}" x:Name="Rightscore" Margin="260,75,0,0" WidthRequest="50" HeightRequest="50" FontSize="25" VerticalTextAlignment="Center"></Label>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="1" IsVisible="{Binding Game.SplitGrid}">
+                        <CollectionView ItemsLayout="HorizontalList" BackgroundColor="Transparent" Grid.Column="1" Margin="-210,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding Game.Players[0].SplitHand[0], Mode=OneWay}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Margin="10, 0" WidthRequest="20" HeightRequest="40" Source="{Binding ActiveURL, Mode=OneWay}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <CollectionView ItemsLayout="HorizontalList" BackgroundColor="Transparent" Grid.Column="1" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding Game.Players[0].SplitHand[1], Mode=OneWay}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Margin="10, 0" WidthRequest="20" HeightRequest="40" Source="{Binding ActiveURL, Mode=OneWay}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="1" IsVisible="{Binding Game.NoSplitGrid}">
+                        <CollectionView ItemsLayout="HorizontalList" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding Game.Players[0].Hand, Mode=OneWay}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Margin="25, 0" Source="{Binding ActiveURL, Mode=OneWay}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </Grid>
+
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="1.6*"></RowDefinition>
+                        <RowDefinition Height="1.6*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Entry IsEnabled="{Binding Game.Tokendrop, Mode=TwoWay}" Text="{Binding Game.MyAantal, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="50" HeightRequest="250" Grid.Row="1" TextColor="Black" FontSize="15" Keyboard="Numeric" HorizontalTextAlignment="Center"></Entry>
+                    <Button IsEnabled="{Binding Game.Deals, Mode=TwoWay}" Pressed="Deal_click" WidthRequest="60" HeightRequest="35" Grid.Row="3" Background="lightgray" Text="Deal" FontSize="10" TextColor="Black"></Button>
+                    <Button IsEnabled="{Binding Game.Hit, Mode=TwoWay}" Pressed="Hit_Click" WidthRequest="60" HeightRequest="35" Grid.Row="4" Background="lightgray" Text="Hit" FontSize="10" TextColor="Black"></Button>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.4*"></RowDefinition>
+                        <RowDefinition Height="1.4*"></RowDefinition>
+                        <RowDefinition Height="1.4*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button IsEnabled="{Binding Game.Splitten, Mode=TwoWay}" Pressed="Splitten_Click" WidthRequest="60" HeightRequest="35" Padding="10" Background="lightgray" Text="Splitten" FontSize="10" TextColor="Black"></Button>
+                    <Button IsEnabled="{Binding Game.Dubbel, Mode=TwoWay}" Pressed="Dubbelen_Click" WidthRequest="60" HeightRequest="35" Padding="10" Grid.Row="1" Background="lightgray" Text="Dubbel" FontSize="10" TextColor="Black"></Button>
+                    <Button IsEnabled="{Binding Game.Standing, Mode=TwoWay}" Pressed="Stand_Click" WidthRequest="60" HeightRequest="35" Padding="10" Grid.Row="2" Background="lightgray" Text="Stand" FontSize="10" TextColor="Black"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

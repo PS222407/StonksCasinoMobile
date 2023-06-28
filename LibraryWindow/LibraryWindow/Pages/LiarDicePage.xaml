@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow"
+             x:Class="LibraryWindow.Pages.LiarDicePage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <Button Text="Winkel" Pressed="Store_Pressed"/>
+                <Button Text="Geld storten" Pressed="Deposit_Pressed"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="End" VerticalOptions="Start" HeightRequest="65" Orientation="Horizontal">
+                <Button Text="Uitloggen" Margin="0,0,0,20" Pressed="Uitloggen_Pressed"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.account.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" TextColor="White" Margin="0,0,10,15" Text="{Binding Username, Mode=OneWay}"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.token.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" Text="{Binding Tokens, Mode=OneWay}" TextColor="White" Margin="0,0,10,15"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <Grid>
+        <Image  Source="{Binding background, Mode=OneWay}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="Fill" />
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Text="Start" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding GameSetup.Startbtn}"  Pressed="Start_Pressed"/>
+                <Grid Grid.Row="4" Grid.RowSpan="2" Opacity="0.7" Grid.ColumnSpan="2"  Grid.Column="0" BackgroundColor="#262626"/>
+                <StackLayout Grid.Row="4" Grid.RowSpan="2"  Grid.ColumnSpan="2" VerticalOptions="Center" Orientation="Vertical" Grid.Column="0" >
+                    <Label TextColor="White" VerticalTextAlignment="Center" FontSize="Medium" HorizontalTextAlignment="Center" Text="{Binding GameSetup.GameLogCall}"/>
+                    <Label TextColor="White" VerticalTextAlignment="Center" FontSize="Medium" HorizontalTextAlignment="Center" Text="{Binding GameSetup.GameLogSubtext}"/>
+                </StackLayout>
+
+                <Grid Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2"  BackgroundColor="#262626">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout  Grid.Row="0" HorizontalOptions="Center" Orientation="Horizontal" >
+
+                        <Picker FontSize="15" Margin="8,0" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  SelectedIndexChanged="Picker_SelectedIndexChanged"  TextColor="White"  TitleColor="White">
+                            <Picker.Items>
+                                <x:String>1</x:String>
+                                <x:String>2</x:String>
+                                <x:String>3</x:String>
+                                <x:String>4</x:String>
+                                <x:String>5</x:String>
+                                <x:String>6</x:String>
+                                <x:String>7</x:String>
+                                <x:String>8</x:String>
+                                <x:String>9</x:String>
+                                <x:String>10</x:String>
+                                <x:String>11</x:String>
+                                <x:String>12</x:String>
+                                <x:String>13</x:String>
+                                <x:String>14</x:String>
+                                <x:String>15</x:String>
+                                <x:String>16</x:String>
+                                <x:String>17</x:String>
+                                <x:String>18</x:String>
+                                <x:String>19</x:String>
+                                <x:String>20</x:String>
+                            </Picker.Items>
+                        </Picker>
+                        <Label Text="x" TextColor="White" VerticalOptions="Center" FontSize="25"/>
+
+                        <Button Text="ᐊ"  Pressed="Min_Pressed" Padding="1" BackgroundColor="Transparent" WidthRequest="40" TextColor="White" VerticalOptions="Center" FontSize="25"/>
+
+
+                        <Image Margin="5"  VerticalOptions="Center" Source="{Binding DiceSource}"/>
+                        <Button Text="ᐅ" Pressed="Plus_Pressed" Padding="1" BackgroundColor="Transparent" WidthRequest="40" TextColor="White" VerticalOptions="Center" FontSize="25"/>
+
+
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" Orientation="Vertical">
+
+                        <Button Margin="20,1" Padding="1" IsEnabled="{Binding GameSetup.Players[0].ActiveCall, Mode=OneWay}" Pressed="Called_Pressed" HeightRequest="25" Text="Call" TextColor="{Binding CallColor, Mode=OneWay}" BackgroundColor="Gray"/>
+                        <Button Margin="20,1" Padding="1" IsEnabled="{Binding GameSetup.Players[0].ActiveLiar, Mode=OneWay}" Pressed="Liar_Pressed" HeightRequest="25" Text="liar" BackgroundColor="Gray"/>
+
+                    </StackLayout>
+
+                </Grid>
+
+
+
+                <Grid Grid.Row="3" Grid.RowSpan="3" Grid.Column="2"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Padding="5">
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Image  Grid.Row="2" Grid.Column="4"   Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[0].MyThrow.Dices[0].ImgSource}"/>
+                        <Image  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[0].MyThrow.Dices[1].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="7"   Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[0].MyThrow.Dices[2].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="5"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[0].MyThrow.Dices[3].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="3"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[0].MyThrow.Dices[4].ImgSource}"/>
+
+
+                    </Grid>
+
+                    <Image Grid.Row="0" Opacity="{Binding GameSetup.Players[0].CupOpacity, Mode=OneWay}" Source="{Binding Cup, Mode=OneWay}" />
+                    <Label Grid.Row="1" Text="{Binding GameSetup.Players[0].Name, Mode=OneWay}" Margin="0,0,0,5" TextColor="{Binding GameSetup.Players[0].NameColor}"  FontSize="20"  VerticalOptions="Center" HorizontalOptions="Center" />
+                </Grid>
+
+
+
+
+                <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1"  Padding="5">
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Image  Grid.Row="2" Grid.Column="4"   Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[1].MyThrow.Dices[0].ImgSource}"/>
+                        <Image  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[1].MyThrow.Dices[1].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="7"   Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[1].MyThrow.Dices[2].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="5"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[1].MyThrow.Dices[3].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="3"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[1].MyThrow.Dices[4].ImgSource}"/>
+
+
+                    </Grid>
+                    <Image Grid.Row="1" Opacity="{Binding GameSetup.Players[1].CupOpacity, Mode=OneWay}" Source="{Binding Cup, Mode=OneWay}" />
+                    <Label Grid.Row="0" Text="{Binding GameSetup.Players[1].Name, Mode=OneWay}"  TextColor="{Binding GameSetup.Players[1].NameColor}"  FontSize="20"  VerticalOptions="Center" HorizontalOptions="Center" />
+                </Grid>
+
+
+
+                <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="2"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1"  Padding="5">
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Image  Grid.Row="2" Grid.Column="4"   Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[2].MyThrow.Dices[0].ImgSource}"/>
+                        <Image  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[2].MyThrow.Dices[1].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="7"   Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[2].MyThrow.Dices[2].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="5"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[2].MyThrow.Dices[3].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="3"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[2].MyThrow.Dices[4].ImgSource}"/>
+
+
+                    </Grid>
+                    <Image Grid.Row="1" Opacity="{Binding GameSetup.Players[2].CupOpacity, Mode=OneWay}" Source="{Binding Cup, Mode=OneWay}" />
+                    <Label Grid.Row="0" Text="{Binding GameSetup.Players[2].Name, Mode=OneWay}"  TextColor="{Binding GameSetup.Players[2].NameColor}"  FontSize="20"  VerticalOptions="Center" HorizontalOptions="Center" />
+                </Grid>
+
+
+
+
+                <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="4"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1"  Padding="5">
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Image  Grid.Row="2" Grid.Column="4"   Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[3].MyThrow.Dices[0].ImgSource}"/>
+                        <Image  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Source="{Binding GameSetup.Players[3].MyThrow.Dices[1].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="7"   Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[3].MyThrow.Dices[2].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="5"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[3].MyThrow.Dices[3].ImgSource}"/>
+                        <Image Grid.Row="3" Grid.Column="3"  Grid.ColumnSpan="2"  Source="{Binding GameSetup.Players[3].MyThrow.Dices[4].ImgSource}"/>
+
+
+                    </Grid>
+                    <Image Grid.Row="1" Opacity="{Binding GameSetup.Players[3].CupOpacity, Mode=OneWay}" Source="{Binding Cup, Mode=OneWay}" />
+                    <Label Grid.Row="0" Text="{Binding GameSetup.Players[3].Name, Mode=OneWay}"  TextColor="{Binding GameSetup.Players[3].NameColor}"  FontSize="20"  VerticalOptions="Center" HorizontalOptions="Center" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

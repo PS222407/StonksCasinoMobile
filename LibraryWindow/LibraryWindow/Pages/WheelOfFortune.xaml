@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LibraryWindow;assembly=LibraryWindow"
+             NavigationPage.HasBackButton="False"
+             x:Class="LibraryWindow.Pages.WheelOfFortune">
+    <NavigationPage.TitleView>
+        <Grid>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <ImageButton BackgroundColor="Transparent" Pressed="BackButton_Pressed" HeightRequest="30" WidthRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.backArrow.png}"/>
+                <Button Text="Winkel" Pressed="Store_Pressed"/>
+                <Button Text="Geld storten" Pressed="Deposit_Pressed"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="End" VerticalOptions="Start" HeightRequest="65" Orientation="Horizontal">
+                <Button Text="Uitloggen" Margin="0,0,0,20" Pressed="Uitloggen_Pressed"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.account.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" TextColor="White" Margin="0,0,10,15" Text="{Binding Username, Mode=OneWay}"/>
+                <Image HeightRequest="40" VerticalOptions="Center" Source="{local:ImageResource LibraryWindow.Images.Main.token.png}" Margin="0,0,0,15"/>
+                <Label VerticalTextAlignment="Center" Text="{Binding Tokens, Mode=OneWay}" TextColor="White" Margin="0,0,10,15"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+
+    <Grid x:Name="myGrid">
+        <Grid IsVisible="true">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.ColumnSpan="2" Source="{local:ImageResource LibraryWindow.Images.Main.background.png}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+
+            <StackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Margin="5">
+                <Frame CornerRadius="50" HeightRequest="50" WidthRequest="50" Padding="0" BackgroundColor="#88000000">
+                    <Button Text="?" BackgroundColor="Transparent" Pressed="Button_Pressed" FontAttributes="Bold" FontSize="25" TextColor="White" Padding="0,0,0,0"/>
+                </Frame>
+            </StackLayout>
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="1" Source="{Binding WheelImg, Mode=OneWay}" Margin="0,-15,0,25" x:Name="imgWheel" Rotation="7.5"/>
+                <Image Grid.Row="1" Source="{local:ImageResource LibraryWindow.Images.WheelOfFortune.centerWheel.png}" Margin="0,-15,0,25"/>
+                <Image Grid.Row="0" Source="{local:ImageResource LibraryWindow.Images.WheelOfFortune.arrow.png}" />
+
+                <Grid Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView Grid.Column="0" Color="Transparent" VerticalOptions="FillAndExpand">
+                        <BoxView.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Left" Swiped="OnSwiped0"/>
+                            <SwipeGestureRecognizer Direction="Right" Swiped="OnSwiped0"/>
+                            <SwipeGestureRecognizer Direction="Up" Swiped="OnSwiped0"/>
+                            <SwipeGestureRecognizer Direction="Down" Swiped="OnSwiped0"/>
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+                    <BoxView Grid.Column="1" Color="Transparent" VerticalOptions="FillAndExpand">
+                        <BoxView.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Left" Swiped="OnSwiped"/>
+                            <SwipeGestureRecognizer Direction="Right" Swiped="OnSwiped"/>
+                            <SwipeGestureRecognizer Direction="Up" Swiped="OnSwiped"/>
+                            <SwipeGestureRecognizer Direction="Down" Swiped="OnSwiped"/>
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+                </Grid>
+            </Grid>
+
+            <StackLayout Grid.Column="1" Margin="0,0,75,0" VerticalOptions="Center">
+                <Button Pressed="Btn_Draai_Pressed" Text="draai  -65" IsEnabled="{Binding ButtonSwitch, Mode=OneWay}"/>
+                <Button Pressed="Btn_Stop_Pressed" Text="STOP" x:Name="btnStop" IsEnabled="False" />
+                <!--<Label Text="{Binding Cost, Mode=OneWay}" FontSize="30" FontAttributes="Bold" HorizontalTextAlignment="Center"/>-->
+                <Label x:Name="winLabel" HorizontalTextAlignment="Center" TextColor="Red"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Pot:" FontSize="30" FontAttributes="Bold"/>
+                    <Label Text="{Binding WinAmount, Mode=OneWay}" FontSize="30" FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+
+        <Grid IsVisible="{Binding WinGrid, Mode=OneWay}">
+            <StackLayout>
+                <Frame x:Name="lbWin" TranslationY="-150" BackgroundColor="#88000000" CornerRadius="50" IsClippedToBounds="True" Margin="0,-100,0,0" Padding="10" HorizontalOptions="Center" VerticalOptions="Start">
+                    <Label Text="{Binding CurrentWin, Mode=OneWay}" TextColor="White" FontSize="100" />
+                </Frame>
+            </StackLayout>
+        </Grid>
+
+        <Grid Margin="50,0" x:Name="gridRules" IsVisible="false">
+            <Frame BackgroundColor="Black" WidthRequest="400" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Background="DarkGreen" Spacing="2" HorizontalOptions="Center" VerticalOptions="Center" Padding="10">
+                    <Label TextColor="White" FontSize="12" Text="-Het getal wat je draait komt in de pot."/>
+                    <Label TextColor="White" FontSize="12" Text="-Elke ronde wordt de pot verhoogd met 10%."/>
+                    <Label TextColor="White" FontSize="12" Text="-Als je op bankrupt komt wordt de pot terug gezet naar 0."/>
+                    <Label TextColor="White" FontSize="12" Text="-Als je op de stop knop drukt wordt het spel terug gezet naar ronde 1, de pot waarde wordt dan op je account bijgeschreven."/>
+                    <Label TextColor="White" FontSize="12" Text="-Elke keer als je op de draai knop klikt kost het je 65 tokens."/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>
